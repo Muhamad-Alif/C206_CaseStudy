@@ -4,11 +4,13 @@ public class CareerPlanningApp {
 
 	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
 	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
+	static ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 	
 	public static void main(String[] args) {
 		
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
 		userAccList.add(new UserAccounts("1", "Kelsy Seah"));
+		subjectList.add(new Subjects("1", "Mathematics"));
 		
 		int option = -1;
 		
@@ -84,10 +86,13 @@ public class CareerPlanningApp {
 				int SubjectOption = Helper.readInt("Enter an option > ");
 				
 				if (SubjectOption == 1) {
+					CareerPlanningApp.viewSubjects(subjectList);
 					
 				} else if (SubjectOption == 2) {
+					CareerPlanningApp.addSubjects(subjectList);
 					
 				} else if (SubjectOption == 3) {
+					CareerPlanningApp.deleteSubjects(subjectList);
 					
 				}
 			} else if (option == 5) {
@@ -97,6 +102,8 @@ public class CareerPlanningApp {
 		}
 	}
 	
+
+
 	public static void menu() {
 		Helper.line(80, "=");
 		System.out.println("CAREER PLANNING APPLICATION");
@@ -104,7 +111,8 @@ public class CareerPlanningApp {
 		System.out.println("1. Manage User");
 		System.out.println("2. Manage Academic Cluster");
 		System.out.println("3. Manage Career Information");
-		System.out.println("3. Manage Subject");
+		System.out.println("4. Manage Subject");
+		System.out.println("5. Quit");
 	}
 	public static String retrieveCluster(ArrayList<AcademicCluster> clusterList) {
 		String output = "";
@@ -196,6 +204,61 @@ public class CareerPlanningApp {
 			output += retrieveAllUsers(userAccList);
 			System.out.println(output);
 		}
+	}
+	
+	
+	public static String retrieveSubjects(ArrayList<Subjects> subjectList) {
+		String output = "";
+		
+		for (int i = 0; i < subjectList.size(); i++) {
+			output += String.format("%-15s %-15s", subjectList.get(i).getSubjectID(), subjectList.get(i).getSubjectName());
+		}
+		return output;
+	}
+	
+	public static void viewSubjects(ArrayList<Subjects> subjectList2) {
+		
+		String output = String.format("%-14s %-15s\n", "SUBJECT ID", " SUBJECT NAME");
+		
+		for (int i = 0; i < subjectList.size(); i++) {
+			output += retrieveSubjects(subjectList);
+			System.out.println(output);
+		}
+		
+	}
+
+	public static ArrayList<Subjects> addSubjects(ArrayList<Subjects> addSubjectList) {
+
+		String subjectID = Helper.readString("Enter Subject ID: ");
+		String subjectName = Helper.readString("Enter Subject Name: ");
+		
+		Subjects addSubject = new Subjects(subjectID, subjectName);
+		addSubjectList.add(addSubject);
+		
+		System.out.println("Subject Successfully Added!");
+		return addSubjectList;
+		
+	}
+
+	public static ArrayList<Subjects> deleteSubjects(ArrayList<Subjects> deleteSubjectList) {
+
+		String subjectID = Helper.readString("Enter Subject ID > ");
+		
+		for (int i = 0; i < subjectList.size(); i++) {
+			if (subjectID.equalsIgnoreCase(subjectList.get(i).getSubjectID())) {
+			subjectList.remove(i);
+			
+			System.out.println("Subject " + subjectID + " has been successfully removed!");
+			break;
+			} 
+			
+			else {
+				System.out.println("Invalid Subject ID!");
+			}
+		}
+		
+		return deleteSubjectList;
+		
 	}
 	
 }

@@ -8,6 +8,7 @@ public class C206_CaseStudyTest {
 	
 	private ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
 	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
+	private ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 	
 	@Before
 	public void setUp() throws Exception {
@@ -119,4 +120,58 @@ public class C206_CaseStudyTest {
 	public void tearDownUC() throws Exception {
 		userAccList = null;
 	}
+	
+	@Test
+	public void viewSubjects() {
+		//fail("Not yet implemented"); 
+
+		// Test that if subjectList is not null but empty, so that it can view the list of ALL subjects
+		assertNotNull("Test that if there is valid Subjects arrayList to add to", subjectList);
+		
+		//Test if the list of all subjects are retrieved from the CareerPlanningApp is empty
+		String allSubjects = CareerPlanningApp.retrieveSubjects(subjectList);
+		String output = "";
+		assertEquals("Check that viewSubjects", output, allSubjects);
+		
+		//Given an empty list, after adding 1 item, test if the size of the list is 1
+		subjectList = CareerPlanningApp.addSubjects(subjectList);
+		assertEquals("Test if that subjectList size is 1?", 1, subjectList.size());
+		
+		//Test if the expected output string same as the list of all subjects retrieved from the CareerPlanningApp
+		allSubjects = CareerPlanningApp.retrieveSubjects(subjectList);
+		
+		output += String.format("%-14s %-15s", "1", "Mathematics");
+		
+		assertEquals("Check that viewSubjects", output, allSubjects);
+	}
+	
+	@Test
+	public void addSubjects() {
+		//fail("Not yet implemented"); 
+		
+		// Test that if subjectList is not null, so that it can add Subjects
+		assertNotNull("Test if there is valid subjectList to add to", subjectList);
+		
+		//Given an empty list, after adding 1 item, the size of the 
+		subjectList = CareerPlanningApp.addSubjects(subjectList);
+		assertEquals("Test if that subjectList size is 1?", 1, subjectList.size());
+	}
+	
+	@Test
+	public void deleteSubjects() {
+		//fail("Not yet implemented"); 
+		
+		// Test if subejectList is not null, so that it can delete Subjects
+		assertNotNull("Test if there is valid subjectList to delete from", subjectList);
+		
+		//Given a list with 1 item, after deleting 1 item, the size of the list is 0
+		CareerPlanningApp.deleteSubjects(subjectList);
+		assertEquals("Test if the subjectList size is 0?", 0, subjectList.size());
+	}
+	
+	@After
+	public void tearDownSubjects() throws Exception {
+		subjectList = null;
+	}
+	
 }
