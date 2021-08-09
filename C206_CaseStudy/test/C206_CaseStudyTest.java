@@ -7,6 +7,7 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	
 	private ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
+	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
 	
 	@Before
 	public void setUp() throws Exception {
@@ -64,5 +65,58 @@ public class C206_CaseStudyTest {
 	@After
 	public void tearDown() throws Exception {
 		clusterList = null;
+	}
+	
+	@Test
+	public void viewAllUsers() {
+		//fail("Not yet implemented"); 
+
+		// Test if userAccList is not null but empty, so that it can view the list of ALL users
+		assertNotNull("Test if there is valid Cluster arrayList to add to", userAccList);
+		
+		//Test if the list of all users retrieved from the CareerPlanningApp is empty
+		String allUserAcc = CareerPlanningApp.retrieveAllUsers(userAccList);
+		String output = "";
+		assertEquals("Check that viewAllUsers", output, allUserAcc);
+		
+		//Given an empty list, after adding 1 item, test if the size of the list is 1
+		userAccList = CareerPlanningApp.addUserAcc(userAccList);
+		assertEquals("Test if that userAccList size is 1?", 1, userAccList.size());
+		
+		//Test if the expected output string same as the list of all users retrieved from the CareerPlanningApp
+		allUserAcc = CareerPlanningApp.retrieveAllUsers(userAccList);
+		
+		output += String.format("%-15s %-10s", "1", "Kelsy Seah");
+		
+		assertEquals("Check that viewAllUsers", output, allUserAcc);
+	}
+	
+	@Test
+	public void removeUserAcc() {
+		//fail("Not yet implemented"); 
+		
+		// Test if userAccList is not null, so that it can delete User Account
+		assertNotNull("Test if there is valid userAccList to delete from", userAccList);
+		
+		//Given a list with 1 item, after deleting 1 item, the size of the list is 0
+		CareerPlanningApp.removeUserAcc(userAccList);
+		assertEquals("Test if the userAccList size is 0?", 0, userAccList.size());
+	}
+	
+	@Test
+	public void addUserAcc() {
+		//fail("Not yet implemented"); 
+		
+		// Test if userAccList is not null, so that it can add User Account
+		assertNotNull("Test if there is valid userAccList to add to", userAccList);
+		
+		//Given an empty list, after adding 1 item, the size of the 
+		userAccList = CareerPlanningApp.addUserAcc(userAccList);
+		assertEquals("Test if that userAccList size is 1?", 1, userAccList.size());
+	}
+	
+	@After
+	public void tearDownUC() throws Exception {
+		userAccList = null;
 	}
 }

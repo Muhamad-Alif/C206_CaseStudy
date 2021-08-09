@@ -3,10 +3,12 @@ import java.util.ArrayList;
 public class CareerPlanningApp {
 
 	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
+	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
 	
 	public static void main(String[] args) {
 		
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
+		userAccList.add(new UserAccounts("1", "Kelsy Seah"));
 		
 		int option = -1;
 		
@@ -25,10 +27,15 @@ public class CareerPlanningApp {
 				int UserOption = Helper.readInt("Enter an option > ");
 				
 				if (UserOption == 1) {
-					
-				} else if (UserOption == 2) {
-					
-				} else if (UserOption == 3) {
+					CareerPlanningApp.viewAllUsers(userAccList);
+				} 
+				
+				else if (UserOption == 2) {
+					CareerPlanningApp.addUserAcc(userAccList);
+				} 
+				
+				else if (UserOption == 3) {
+					CareerPlanningApp.removeUserAcc(userAccList);
 					
 				}
 			} else if (option == 2) {
@@ -142,4 +149,53 @@ public class CareerPlanningApp {
 		}
 		return clusterList;
 	}
+	
+	public static ArrayList<UserAccounts> addUserAcc (ArrayList<UserAccounts> addUserList){
+		String userAccID = Helper.readString("Enter User ID: ");
+		String userAccName = Helper.readString("Enter User Name: ");
+		
+		UserAccounts addUser = new UserAccounts(userAccID, userAccName);
+		addUserList.add(addUser);
+		
+		System.out.println("User Account Has Been Added!");
+		return addUserList;
+	}
+	
+	public static ArrayList<UserAccounts> removeUserAcc (ArrayList<UserAccounts> removeUserList){
+		String userID = Helper.readString("Enter User ID > ");
+		
+		for (int i = 0; i < userAccList.size(); i++) {
+			if (userID.equalsIgnoreCase(userAccList.get(i).getUserID())) {
+			userAccList.remove(i);
+			
+			System.out.println("User " + userID + " have been removed!");
+			break;
+			} 
+			
+			else {
+				System.out.println("Invalid User ID!");
+			}
+		}
+		
+		return removeUserList;
+	}
+	
+	public static String retrieveAllUsers(ArrayList<UserAccounts> userAccList) {
+		String output = "";
+		
+		for (int i = 0; i < userAccList.size(); i++) {
+			output += String.format("%-15s %-15s", userAccList.get(i).getUserID(), userAccList.get(i).getUserName());
+		}
+		return output;
+	}
+	
+	public static void viewAllUsers (ArrayList<UserAccounts> userAccList) {
+		String output = String.format("%-15s %-10s\n", "USER ID", "NAME");
+		
+		for (int i = 0; i < userAccList.size(); i++) {
+			output += retrieveAllUsers(userAccList);
+			System.out.println(output);
+		}
+	}
+	
 }
