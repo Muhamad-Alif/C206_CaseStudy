@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 
-public class C206_CaseStudy {
+public class CareerPlanningApp {
 
+	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
+	
 	public static void main(String[] args) {
 		
+		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
 		
 		int option = -1;
 		
 		while (option != 5) {
-			C206_CaseStudy.menu();
+			CareerPlanningApp.menu();
 			option = Helper.readInt("Enter an option > ");
 			
 			if (option == 1) {
@@ -39,11 +42,12 @@ public class C206_CaseStudy {
 				int ACOption = Helper.readInt("Enter an option > ");
 				
 				if (ACOption == 1) {
-					
+					CareerPlanningApp.retrieveCluster(clusterList);
 				} else if (ACOption == 2) {
+					clusterList = CareerPlanningApp.addCluster(null);
 					
 				} else if (ACOption == 3) {
-					
+					clusterList = CareerPlanningApp.removeCluster(clusterList);
 				}
 			} else if (option == 3) {
 				Helper.line(80, "=");
@@ -95,5 +99,47 @@ public class C206_CaseStudy {
 		System.out.println("3. Manage Career Information");
 		System.out.println("3. Manage Subject");
 	}
-
+	public static String retrieveCluster(ArrayList<AcademicCluster> clusterList) {
+		String output = "";
+		
+		for (int i = 0; i < clusterList.size(); i++) {
+			output += String.format("%-15s %-15s", clusterList.get(i).getClusterID(), clusterList.get(i).getClusterName());
+		}
+		return output;
+	}
+	
+	public static void viewCluster(ArrayList<AcademicCluster> clusterList) {
+		String output = String.format("%-15s %-10s\n", "CLUSTER ID", "NAME");
+		for (int i = 0; i < clusterList.size(); i++) {
+			output += retrieveCluster(clusterList);
+			System.out.println(output);
+		}
+	}
+	
+	public static ArrayList<AcademicCluster> addCluster(ArrayList<AcademicCluster> acList) {
+		String clusterID = Helper.readString("Enter Cluster ID > ");
+		String clusterName = Helper.readString("Enter Cluster Name > ");
+		
+		AcademicCluster ac = new AcademicCluster(clusterID, clusterName);
+		acList.add(ac);
+		
+		System.out.println("Academic Cluster added");
+		return acList;
+	}
+	
+	public static ArrayList<AcademicCluster> removeCluster(ArrayList<AcademicCluster> clusterList) {
+		String clusterID = Helper.readString("Enter Cluster ID > ");
+		
+		for (int i = 0; i < clusterList.size(); i++) {
+			if (clusterID.equalsIgnoreCase(clusterList.get(i).getClusterID())) {
+			clusterList.remove(i);
+			
+			System.out.println("Cluster " + clusterID + " is removed");
+			break;
+			} else {
+				System.out.println("Invalid Cluster ID");
+			}
+		}
+		return clusterList;
+	}
 }
