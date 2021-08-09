@@ -39,6 +39,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that viewCluster", output, allCluster);
 	}
 	
+	
 	@Test
 	public void removeCluster() {
 		//fail("Not yet implemented"); 
