@@ -72,7 +72,7 @@ public class C206_CaseStudyTest {
 		//fail("Not yet implemented"); 
 
 		// Test if userAccList is not null but empty, so that it can view the list of ALL users
-		assertNotNull("Test if there is valid Cluster arrayList to add to", userAccList);
+		assertNotNull("Test if there is valid UserAcc arrayList to add to", userAccList);
 		
 		//Test if the list of all users retrieved from the CareerPlanningApp is empty
 		String allUserAcc = CareerPlanningApp.retrieveAllUsers(userAccList);
