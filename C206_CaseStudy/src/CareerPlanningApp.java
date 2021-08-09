@@ -272,6 +272,7 @@ public class CareerPlanningApp {
 				}
 			} else {
 				System.out.println("Career Information not deleted!");
+				
 			}
 
 		} else {

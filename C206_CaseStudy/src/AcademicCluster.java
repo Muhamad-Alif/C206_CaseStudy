@@ -7,6 +7,7 @@
  */
 
 public class AcademicCluster {
+	
 	private String clusterID;
 	private String clusterName;
 	private String careerInformation;
