@@ -3,11 +3,16 @@ import java.util.ArrayList;
 public class CareerPlanningApp {
 
 	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
+	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
+	static ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 
 	public static void main(String[] args) {
 
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
 		clusterList.add(new AcademicCluster("R2", "Information Technology", "Application Software Developer"));
+
+		userAccList.add(new UserAccounts("1", "Kelsy Seah"));
+		subjectList.add(new Subjects("1", "Mathematics"));
 
 		int option = -1;
 
@@ -26,12 +31,13 @@ public class CareerPlanningApp {
 				int UserOption = Helper.readInt("Enter an option > ");
 
 				if (UserOption == 1) {
-
+					CareerPlanningApp.viewAllUsers(userAccList);
 				} else if (UserOption == 2) {
-
+					CareerPlanningApp.addUserAcc(userAccList);
 				} else if (UserOption == 3) {
-
+					CareerPlanningApp.removeUserAcc(userAccList);
 				}
+				
 			} else if (option == 2) {
 				Helper.line(80, "=");
 				System.out.println("Manage Academic Cluster");
@@ -44,6 +50,7 @@ public class CareerPlanningApp {
 
 				if (ACOption == 1) {
 					CareerPlanningApp.retrieveCluster(clusterList);
+					
 				} else if (ACOption == 2) {
 					clusterList = CareerPlanningApp.addCluster(null);
 
@@ -62,6 +69,7 @@ public class CareerPlanningApp {
 
 				if (CIOption == 1) {
 					viewAllInformation(clusterList);
+					
 				} else if (CIOption == 2) {
 					addInformation(clusterList);
 
@@ -80,10 +88,13 @@ public class CareerPlanningApp {
 				int SubjectOption = Helper.readInt("Enter an option > ");
 
 				if (SubjectOption == 1) {
-
+					CareerPlanningApp.viewSubjects(subjectList);
+					
 				} else if (SubjectOption == 2) {
-
+					CareerPlanningApp.addSubjects(subjectList);
+					
 				} else if (SubjectOption == 3) {
+					CareerPlanningApp.deleteSubjects(subjectList);
 
 				}
 			} else if (option == 5) {
@@ -100,7 +111,8 @@ public class CareerPlanningApp {
 		System.out.println("1. Manage User");
 		System.out.println("2. Manage Academic Cluster");
 		System.out.println("3. Manage Career Information");
-		System.out.println("3. Manage Subject");
+		System.out.println("4. Manage Subject");
+		System.out.println("5. Quit");
 	}
 
 	public static String retrieveCluster(ArrayList<AcademicCluster> clusterList) {
@@ -272,12 +284,115 @@ public class CareerPlanningApp {
 				}
 			} else {
 				System.out.println("Career Information not deleted!");
-				
+
 			}
 
 		} else {
 			System.out.println("Career does not exist!");
 		}
+
+	}
+
+	public static ArrayList<UserAccounts> addUserAcc(ArrayList<UserAccounts> addUserList) {
+		String userAccID = Helper.readString("Enter User ID: ");
+		String userAccName = Helper.readString("Enter User Name: ");
+
+		UserAccounts addUser = new UserAccounts(userAccID, userAccName);
+		addUserList.add(addUser);
+
+		System.out.println("User Account Has Been Added!");
+		return addUserList;
+	}
+
+	public static ArrayList<UserAccounts> removeUserAcc(ArrayList<UserAccounts> removeUserList) {
+		String userID = Helper.readString("Enter User ID > ");
+
+		for (int i = 0; i < userAccList.size(); i++) {
+			if (userID.equalsIgnoreCase(userAccList.get(i).getUserID())) {
+				userAccList.remove(i);
+
+				System.out.println("User " + userID + " have been removed!");
+				break;
+			}
+
+			else {
+				System.out.println("Invalid User ID!");
+			}
+		}
+
+		return removeUserList;
+	}
+
+	public static String retrieveAllUsers(ArrayList<UserAccounts> userAccList) {
+		String output = "";
+
+		for (int i = 0; i < userAccList.size(); i++) {
+			output += String.format("%-15s %-15s", userAccList.get(i).getUserID(), userAccList.get(i).getUserName());
+		}
+		return output;
+	}
+
+	public static void viewAllUsers(ArrayList<UserAccounts> userAccList) {
+		String output = String.format("%-15s %-10s\n", "USER ID", "NAME");
+
+		for (int i = 0; i < userAccList.size(); i++) {
+			output += retrieveAllUsers(userAccList);
+			System.out.println(output);
+		}
+	}
+
+	public static String retrieveSubjects(ArrayList<Subjects> subjectList) {
+		String output = "";
+
+		for (int i = 0; i < subjectList.size(); i++) {
+			output += String.format("%-15s %-15s", subjectList.get(i).getSubjectID(),
+					subjectList.get(i).getSubjectName());
+		}
+		return output;
+	}
+
+	public static void viewSubjects(ArrayList<Subjects> subjectList2) {
+
+		String output = String.format("%-14s %-15s\n", "SUBJECT ID", " SUBJECT NAME");
+
+		for (int i = 0; i < subjectList.size(); i++) {
+			output += retrieveSubjects(subjectList);
+			System.out.println(output);
+		}
+
+	}
+
+	public static ArrayList<Subjects> addSubjects(ArrayList<Subjects> addSubjectList) {
+
+		String subjectID = Helper.readString("Enter Subject ID: ");
+		String subjectName = Helper.readString("Enter Subject Name: ");
+
+		Subjects addSubject = new Subjects(subjectID, subjectName);
+		addSubjectList.add(addSubject);
+
+		System.out.println("Subject Successfully Added!");
+		return addSubjectList;
+
+	}
+
+	public static ArrayList<Subjects> deleteSubjects(ArrayList<Subjects> deleteSubjectList) {
+
+		String subjectID = Helper.readString("Enter Subject ID > ");
+
+		for (int i = 0; i < subjectList.size(); i++) {
+			if (subjectID.equalsIgnoreCase(subjectList.get(i).getSubjectID())) {
+				subjectList.remove(i);
+
+				System.out.println("Subject " + subjectID + " has been successfully removed!");
+				break;
+			}
+
+			else {
+				System.out.println("Invalid Subject ID!");
+			}
+		}
+
+		return deleteSubjectList;
 
 	}
 }
