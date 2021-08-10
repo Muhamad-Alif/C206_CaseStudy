@@ -37,7 +37,7 @@ public class CareerPlanningApp {
 				} else if (UserOption == 3) {
 					CareerPlanningApp.removeUserAcc(userAccList);
 				}
-				
+
 			} else if (option == 2) {
 				Helper.line(80, "=");
 				System.out.println("Manage Academic Cluster");
@@ -50,7 +50,7 @@ public class CareerPlanningApp {
 
 				if (ACOption == 1) {
 					CareerPlanningApp.viewCluster(clusterList);
-					
+
 				} else if (ACOption == 2) {
 					clusterList = CareerPlanningApp.addCluster(clusterList);
 
@@ -69,7 +69,7 @@ public class CareerPlanningApp {
 
 				if (CIOption == 1) {
 					CareerPlanningApp.viewAllInformation(clusterList);
-					
+
 				} else if (CIOption == 2) {
 					CareerPlanningApp.addInformation(clusterList);
 
@@ -89,10 +89,10 @@ public class CareerPlanningApp {
 
 				if (SubjectOption == 1) {
 					CareerPlanningApp.viewSubjects(subjectList);
-					
+
 				} else if (SubjectOption == 2) {
 					CareerPlanningApp.addSubjects(subjectList);
-					
+
 				} else if (SubjectOption == 3) {
 					CareerPlanningApp.deleteSubjects(subjectList);
 
@@ -127,10 +127,10 @@ public class CareerPlanningApp {
 
 	public static void viewCluster(ArrayList<AcademicCluster> clusterList) {
 		String output = String.format("%-15s %-10s\n", "CLUSTER ID", "NAME");
-		for (int i = 0; i < clusterList.size(); i++) {
-			output += retrieveCluster(clusterList);
-			System.out.println(output);
-		}
+
+		output += retrieveCluster(clusterList);
+		System.out.println(output);
+
 	}
 
 	public static ArrayList<AcademicCluster> addCluster(ArrayList<AcademicCluster> clusterList) {
