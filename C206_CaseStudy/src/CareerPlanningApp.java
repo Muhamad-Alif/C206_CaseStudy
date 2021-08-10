@@ -161,7 +161,7 @@ public class CareerPlanningApp {
 				if (clusterID.equalsIgnoreCase(clusterList.get(i).getClusterID())) {
 					clusterList.remove(i);
 
-					System.out.println("Cluster " + clusterID + " is removed");
+					System.out.println("Cluster " + clusterID + " has been removed");
 					break;
 				}
 			}

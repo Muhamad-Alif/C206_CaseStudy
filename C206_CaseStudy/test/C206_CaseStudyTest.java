@@ -22,7 +22,7 @@ public class C206_CaseStudyTest {
 		// Test if clusterList is not null but empty, so that can view list
 		assertNotNull("Test if there is valid Cluster arrayList to add to", clusterList);
 
-		// Test if the list of clusters retrieved from the CareerPlanningApp is empty
+		// Test if the list of clusters retrieved from the CareerPlanningApp is empty.
 		String allCluster = CareerPlanningApp.retrieveCluster(clusterList);
 		String output = "";
 		assertEquals("Check that viewCluster", output, allCluster);
