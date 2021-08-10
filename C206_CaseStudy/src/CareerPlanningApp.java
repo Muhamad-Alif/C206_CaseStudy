@@ -49,10 +49,10 @@ public class CareerPlanningApp {
 				int ACOption = Helper.readInt("Enter an option > ");
 
 				if (ACOption == 1) {
-					CareerPlanningApp.retrieveCluster(clusterList);
+					CareerPlanningApp.viewCluster(clusterList);
 					
 				} else if (ACOption == 2) {
-					clusterList = CareerPlanningApp.addCluster(null);
+					clusterList = CareerPlanningApp.addCluster(clusterList);
 
 				} else if (ACOption == 3) {
 					clusterList = CareerPlanningApp.removeCluster(clusterList);
@@ -68,13 +68,13 @@ public class CareerPlanningApp {
 				int CIOption = Helper.readInt("Enter an option > ");
 
 				if (CIOption == 1) {
-					viewAllInformation(clusterList);
+					CareerPlanningApp.viewAllInformation(clusterList);
 					
 				} else if (CIOption == 2) {
-					addInformation(clusterList);
+					CareerPlanningApp.addInformation(clusterList);
 
 				} else if (CIOption == 3) {
-					deleteInformation(clusterList);
+					CareerPlanningApp.deleteInformation(clusterList);
 
 				}
 			} else if (option == 4) {
@@ -119,7 +119,7 @@ public class CareerPlanningApp {
 		String output = "";
 
 		for (int i = 0; i < clusterList.size(); i++) {
-			output += String.format("%-15s %-15s", clusterList.get(i).getClusterID(),
+			output += String.format("%-15s %-15s\n", clusterList.get(i).getClusterID(),
 					clusterList.get(i).getClusterName());
 		}
 		return output;
@@ -133,15 +133,15 @@ public class CareerPlanningApp {
 		}
 	}
 
-	public static ArrayList<AcademicCluster> addCluster(ArrayList<AcademicCluster> acList) {
+	public static ArrayList<AcademicCluster> addCluster(ArrayList<AcademicCluster> clusterList) {
 		String clusterID = Helper.readString("Enter Cluster ID > ");
 		String clusterName = Helper.readString("Enter Cluster Name > ");
 
 		AcademicCluster ac = new AcademicCluster(clusterID, clusterName);
-		acList.add(ac);
+		clusterList.add(ac);
 
 		System.out.println("Academic Cluster added");
-		return acList;
+		return clusterList;
 	}
 
 	public static ArrayList<AcademicCluster> removeCluster(ArrayList<AcademicCluster> clusterList) {
