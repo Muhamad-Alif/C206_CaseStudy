@@ -10,14 +10,16 @@ public class AcademicCluster {
 	
 	private String clusterID;
 	private String clusterName;
+	private String clusterRole;
 	private String careerInformation;
 
-	public AcademicCluster(String clusterID, String clusterName) {
+	public AcademicCluster(String clusterID, String clusterName, String clusterRole) {
 		this.clusterID = clusterID;
 		this.clusterName = clusterName;
+		this.clusterRole = clusterRole;
 	}
 
-	public AcademicCluster(String clusterID, String clusterName, String careerInformation) {
+	public AcademicCluster(String clusterID, String clusterName, String clusterRole, String careerInformation) {
 		super();
 		this.clusterID = clusterID;
 		this.clusterName = clusterName;
@@ -46,6 +48,14 @@ public class AcademicCluster {
 
 	public void setCareerInformation(String careerInformation) {
 		this.careerInformation = careerInformation;
+	}
+
+	public String getClusterRole() {
+		return clusterRole;
+	}
+
+	public void setClusterRole(String clusterRole) {
+		this.clusterRole = clusterRole;
 	}
 
 }
