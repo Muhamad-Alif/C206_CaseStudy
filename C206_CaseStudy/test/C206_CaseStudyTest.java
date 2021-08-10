@@ -10,8 +10,17 @@ public class C206_CaseStudyTest {
 	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
 	private ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 
+	private CareerInfo career1;
+	private CareerInfo career2;
+	private ArrayList<CareerInfo> careerList;
+
 	@Before
 	public void setUp() throws Exception {
+
+		career1 = new CareerInfo("C1", "Social Worker", "Human Services");
+		career2 = new CareerInfo("C2", "Cashier", "Marketing");
+
+		careerList = new ArrayList<CareerInfo>();
 
 	}
 
@@ -60,27 +69,31 @@ public class C206_CaseStudyTest {
 	public void deleteInformationTest() {
 
 		// Test career list is not null, so that there is a valid list to delete from.
-		assertNotNull("Test career is empty not null", clusterList);
+		assertNotNull("Test career is empty not null", careerList);
 
-		// Test that system checks for existing career. System returns true when there
-		// is same career in the list.
-		clusterList.add(new AcademicCluster("R3", "Finance", "Accountant"));
+		CareerPlanningApp.addInfo(careerList, career1);
+		CareerPlanningApp.addInfo(careerList, career2);
 
-		CareerPlanningApp.addInfo(clusterList, "R3", "Finance", "Tellers");
+		assertEquals("Test that careerList size is 2, after adding 2 career", 2, careerList.size());
 
-		Boolean check = CareerPlanningApp.existing(clusterList, "R3", "Finance");
-		assertTrue(check);
+		// Test that system checks for existing currencies.
+		Boolean exist = CareerPlanningApp.existing(careerList, "C1", "Social Worker");
+		assertTrue("Test that C1 exists in careerList", exist);
 
-		// Test that career information added is the same as test.
+		CareerPlanningApp.deleteInfo(careerList, "C1", "Social Worker");
+		exist = CareerPlanningApp.existing(careerList, "C1", "Social Worker");
+		assertFalse("Test that C1 does not exist in careerList after removing", exist);
 
-		assertEquals("Tellers", clusterList.get(0).getCareerInformation());
+		// Test that careerList size reduces after removing 1.
+		assertEquals("Test that careerList size is 1", 1, careerList.size());
 
-		// Test that system checks for existing career. System returns false when there
-		// is no same career in the list.
-		clusterList.remove(0);
+		// Test that careerList is empty but not null if all career is removed from
+		// careerList.
+		CareerPlanningApp.deleteInfo(careerList, "C2", "Cashier");
+		assertNotNull("Test that careerList is empty, not null", careerList);
 
-		check = CareerPlanningApp.existing(clusterList, "R3", "Finance");
-		assertFalse(check);
+		// Test that careerList size is 0 when all career is removed.
+		assertEquals("Test that careerList size is 0", 0, careerList.size());
 
 	}
 
@@ -88,40 +101,68 @@ public class C206_CaseStudyTest {
 	public void addInformationTest() {
 
 		// Test career list is not null, so that there is a valid list to add to.
-		assertNotNull("Test career is empty not null", clusterList);
+		assertNotNull("Test career is empty not null", careerList);
 
-		// Test that career retrieved from main class is empty.
+		// Test that career list retrieved from main class is empty
 		String testOutput = "";
-		String testList = CareerPlanningApp.retrieveCluster(clusterList);
-		assertEquals(testOutput, testList);
+		String testList = CareerPlanningApp.retrieveAllInformation(careerList);
+		assertEquals("Check careerList is empty", testOutput, testList);
 
-		// Test that when career information is added, career information is the same as
-		// the test.
-		clusterList.add(new AcademicCluster("R3", "Finance", "Accountant"));
-		CareerPlanningApp.addInfo(clusterList, "R3", "Finance", "Tellers");
+		// Test that when 1 career is added, the careerList size increases.
+		CareerPlanningApp.addInfo(careerList, career1);
+		assertEquals("Test that careerList size is 1", 1, careerList.size());
 
-		testOutput = "Tellers";
-		assertEquals(testOutput, clusterList.get(0).getCareerInformation());
+		// Test that system checks for duplicate entries
+		Boolean duplicate = CareerPlanningApp.duplicate(careerList, career1);
+		assertTrue("Test that system checks for duplicate entries", duplicate);
+
+		// Test that system returns false if there is no duplicate entries
+		duplicate = CareerPlanningApp.duplicate(careerList, career2);
+		assertFalse("Test that system checks for duplicate entries", duplicate);
+
+		// Test that details in careerList is same as added details
+		CareerPlanningApp.addInfo(careerList, career2);
+
+		testList = CareerPlanningApp.retrieveAllInformation(careerList);
+
+		testOutput = String.format("%-10s %-30s %-30s\n", "C1", "Social Worker", "Human Services");
+		testOutput += String.format("%-10s %-30s %-30s\n", "C2", "Cashier", "Marketing");
+
+		assertEquals("Test that details is the same", testOutput, testList);
 
 	}
 
 	@Test
 	public void viewInformationTest() {
 		// Test career list is not null, so that there is a valid list to retrieve from.
-		assertNotNull("Test career is empty not null", clusterList);
+		assertNotNull("Test career is empty not null", careerList);
 
-		// Test that career retrieved from main class is empty.
+		// Test that career list retrieved from main class is empty
 		String testOutput = "";
-		String testList = CareerPlanningApp.retrieveCluster(clusterList);
-		assertEquals(testOutput, testList);
+		String testList = CareerPlanningApp.retrieveAllInformation(careerList);
+		assertEquals("Check careerList is empty", testOutput, testList);
 
-		// Test that when career information is added, career information is the same as
-		// the test.
-		clusterList.add(new AcademicCluster("R3", "Finance", "Accountant"));
-		CareerPlanningApp.addInfo(clusterList, "R3", "Finance", "Tellers");
+		// Test that details in careerList is same as retrieved details
+		CareerPlanningApp.addInfo(careerList, career1);
+		CareerPlanningApp.addInfo(careerList, career2);
 
-		testOutput = "Tellers";
-		assertEquals(testOutput, clusterList.get(0).getCareerInformation());
+		testList = CareerPlanningApp.retrieveAllInformation(careerList);
+
+		testOutput = String.format("%-10s %-30s %-30s\n", "C1", "Social Worker", "Human Services");
+		testOutput += String.format("%-10s %-30s %-30s\n", "C2", "Cashier", "Marketing");
+
+		assertEquals("Test that details is the same", testOutput, testList);
+
+		// Test that when one career is removed, careerList does not delete other
+		// details.
+		CareerPlanningApp.deleteInfo(careerList, "C1", "Social Worker");
+
+		assertEquals("Test that after removing 1 career, careerList size is 1", 1, careerList.size());
+
+		testList = CareerPlanningApp.retrieveAllInformation(careerList);
+		testOutput = String.format("%-10s %-30s %-30s\n", "C2", "Cashier", "Marketing");
+
+		assertEquals("Test that details is the same", testOutput, testList);
 
 	}
 
