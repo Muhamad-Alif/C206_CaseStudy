@@ -340,20 +340,19 @@ public class CareerPlanningApp {
 		String output = "";
 
 		for (int i = 0; i < subjectList.size(); i++) {
-			output += String.format("%-15s %-15s", subjectList.get(i).getSubjectID(),
+			output += String.format("%-15s %-15s\n", subjectList.get(i).getSubjectID(),
 					subjectList.get(i).getSubjectName());
 		}
 		return output;
 	}
 
 	public static void viewSubjects(ArrayList<Subjects> subjectList2) {
-
+		
 		String output = String.format("%-14s %-15s\n", "SUBJECT ID", " SUBJECT NAME");
 
-		for (int i = 0; i < subjectList.size(); i++) {
 			output += retrieveSubjects(subjectList);
 			System.out.println(output);
-		}
+		
 
 	}
 
@@ -361,7 +360,7 @@ public class CareerPlanningApp {
 
 		String subjectID = Helper.readString("Enter Subject ID: ");
 		String subjectName = Helper.readString("Enter Subject Name: ");
-
+		
 		Subjects addSubject = new Subjects(subjectID, subjectName);
 		addSubjectList.add(addSubject);
 
@@ -371,13 +370,13 @@ public class CareerPlanningApp {
 	}
 
 	public static ArrayList<Subjects> deleteSubjects(ArrayList<Subjects> deleteSubjectList) {
-
+		boolean deleteSubject = false;
 		String subjectID = Helper.readString("Enter Subject ID > ");
 
 		for (int i = 0; i < subjectList.size(); i++) {
 			if (subjectID.equalsIgnoreCase(subjectList.get(i).getSubjectID())) {
 				subjectList.remove(i);
-
+				deleteSubject = true;
 				System.out.println("Subject " + subjectID + " has been successfully removed!");
 				break;
 			}
