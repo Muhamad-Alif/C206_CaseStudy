@@ -5,14 +5,17 @@ public class CareerPlanningApp {
 	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
 	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
 	static ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
+	static ArrayList<CareerInfo> careerList = new ArrayList<CareerInfo>();
 
 	public static void main(String[] args) {
 
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources", "Chef"));
-		clusterList.add(new AcademicCluster("R2", "Information Technology", "Application Software Developer"));
 
 		userAccList.add(new UserAccounts("1", "Kelsy Seah"));
 		subjectList.add(new Subjects("1", "Mathematics"));
+
+		careerList.add(new CareerInfo("C1", "Elementary School Teacher", "Education and Training"));
+		careerList.add(new CareerInfo("C2", "Computer Programmers", "Information Technology"));
 
 		int option = -1;
 
@@ -37,7 +40,7 @@ public class CareerPlanningApp {
 				} else if (UserOption == 3) {
 					CareerPlanningApp.removeUserAcc(userAccList);
 				}
-				
+
 			} else if (option == 2) {
 				Helper.line(80, "=");
 				System.out.println("Manage Academic Cluster");
@@ -50,7 +53,7 @@ public class CareerPlanningApp {
 
 				if (ACOption == 1) {
 					CareerPlanningApp.viewCluster(clusterList);
-					
+
 				} else if (ACOption == 2) {
 					CareerPlanningApp.addCluster(clusterList);
 
@@ -68,13 +71,13 @@ public class CareerPlanningApp {
 				int CIOption = Helper.readInt("Enter an option > ");
 
 				if (CIOption == 1) {
-					CareerPlanningApp.viewAllInformation(clusterList);
-					
+					CareerPlanningApp.viewAllInformation(careerList);
+
 				} else if (CIOption == 2) {
-					CareerPlanningApp.addInformation(clusterList);
+					CareerPlanningApp.addInformation(careerList, inputCareer());
 
 				} else if (CIOption == 3) {
-					CareerPlanningApp.deleteInformation(clusterList);
+					CareerPlanningApp.deleteInformation(careerList);
 
 				}
 			} else if (option == 4) {
@@ -89,10 +92,10 @@ public class CareerPlanningApp {
 
 				if (SubjectOption == 1) {
 					CareerPlanningApp.viewSubjects(subjectList);
-					
+
 				} else if (SubjectOption == 2) {
 					CareerPlanningApp.addSubjects(subjectList);
-					
+
 				} else if (SubjectOption == 3) {
 					CareerPlanningApp.deleteSubjects(subjectList);
 
@@ -127,18 +130,19 @@ public class CareerPlanningApp {
 
 	public static void viewCluster(ArrayList<AcademicCluster> clusterList) {
 		String output = String.format("%-15s %-40s %-10s\n", "CLUSTER ID", "NAME", "ROLE");
-			output += retrieveCluster(clusterList);
-			System.out.println(output);
-		}
+		output += retrieveCluster(clusterList);
+		System.out.println(output);
+	}
 
 	public static void addCluster(ArrayList<AcademicCluster> clusterList) {
 		String clusterID = Helper.readString("Enter Cluster ID > ");
 		String clusterName = Helper.readString("Enter Cluster Name > ");
 		String clusterRole = Helper.readString("Enter Cluster Role > ");
 		boolean isDupe = false;
-		
+
 		for (int i = 0; i < clusterList.size(); i++) {
-			if (!clusterID.equalsIgnoreCase(clusterList.get(i).getClusterID()) || !clusterName.equals(clusterList.get(i).getClusterName())) {
+			if (!clusterID.equalsIgnoreCase(clusterList.get(i).getClusterID())
+					|| !clusterName.equals(clusterList.get(i).getClusterName())) {
 				if (clusterID.isEmpty() || clusterName.isEmpty()) {
 					System.out.println("Fill in the blanks");
 					isDupe = true;
@@ -149,7 +153,7 @@ public class CareerPlanningApp {
 		if (isDupe == false) {
 			clusterList.add(new AcademicCluster(clusterID, clusterName, clusterRole));
 			System.out.println("Academic Cluster added");
-			
+
 		}
 	}
 
@@ -166,45 +170,52 @@ public class CareerPlanningApp {
 				}
 			}
 		} else {
-			System.out.println("Invalid Cluster ID");	
+			System.out.println("Invalid Cluster ID");
 		}
 		return clusterList;
 	}
 
-	public static String retrieveAllInformation(ArrayList<AcademicCluster> clusterList) {
+	public static String retrieveAllInformation(ArrayList<CareerInfo> careerList) {
 		String output = "";
 
-		for (int i = 0; i < clusterList.size(); i++) {
-			if (clusterList.get(i).getCareerInformation() == null) {
-				String info = "-";
-				output += String.format("%-10s %-40s %-30s\n", clusterList.get(i).getClusterID(),
-						clusterList.get(i).getClusterName(), info);
+		for (int i = 0; i < careerList.size(); i++) {
+			if (careerList.get(i).getCareerSect() == null || careerList.get(i).getCareerSect().isEmpty()) {
+				String sect = "-";
+				output += String.format("%-10s %-30s %-30s\n", careerList.get(i).getCareerID(),
+						careerList.get(i).getCareerName(), sect);
+
+			} else if (careerList.get(i).getCareerName() == null || careerList.get(i).getCareerName().isEmpty()) {
+				String name = "-";
+				output += String.format("%-10s %-30s %-30s\n", careerList.get(i).getCareerID(), name,
+						careerList.get(i).getCareerSect());
+
 			} else {
-				output += String.format("%-10s %-40s %-30s\n", clusterList.get(i).getClusterID(),
-						clusterList.get(i).getClusterName(), clusterList.get(i).getCareerInformation());
+				output += String.format("%-10s %-30s %-30s\n", careerList.get(i).getCareerID(),
+						careerList.get(i).getCareerName(), careerList.get(i).getCareerSect());
 			}
 		}
 
 		return output;
 	}
 
-	public static void viewAllInformation(ArrayList<AcademicCluster> clusterList) {
+	public static void viewAllInformation(ArrayList<CareerInfo> careerList) {
 
 		Helper.line(80, "-");
 		System.out.println("CAREER INFORMATION");
 		Helper.line(80, "-");
 
-		String output = String.format("%-10s %-40s %-30s\n", "CAREER ID", "CAREER NAME", "CAREER INFORMATION");
-		output += retrieveAllInformation(clusterList);
+		String output = String.format("%-10s %-30s %-30s\n", "CAREER ID", "CAREER NAME", "CAREER CLUSTER");
+		output += retrieveAllInformation(careerList);
 
 		System.out.println(output);
 	}
 
-	public static boolean existing(ArrayList<AcademicCluster> clusterList, String id, String name) {
+	public static boolean existing(ArrayList<CareerInfo> careerList, String id, String name) {
 		boolean existing = false;
-		for (int i = 0; i < clusterList.size(); i++) {
-			if (clusterList.get(i).getClusterID().equalsIgnoreCase(id)
-					&& clusterList.get(i).getClusterName().equalsIgnoreCase(name)) {
+
+		for (int i = 0; i < careerList.size(); i++) {
+			if (careerList.get(i).getCareerID().equalsIgnoreCase(id)
+					&& careerList.get(i).getCareerName().equalsIgnoreCase(name)) {
 
 				existing = true;
 			}
@@ -213,55 +224,77 @@ public class CareerPlanningApp {
 		return existing;
 	}
 
-	public static boolean addInfo(ArrayList<AcademicCluster> clusterList, String id, String name, String info) {
-		boolean added = false;
-
-		for (int i = 0; i < clusterList.size(); i++) {
-			if (clusterList.get(i).getClusterID().equalsIgnoreCase(id)
-					&& clusterList.get(i).getClusterName().equalsIgnoreCase(name)) {
-				clusterList.get(i).setCareerInformation(info);
-				added = true;
-			}
-		}
-
-		return added;
-	}
-
-	public static void addInformation(ArrayList<AcademicCluster> clusterList) {
-
-		viewAllInformation(clusterList);
+	public static CareerInfo inputCareer() {
 
 		Helper.line(80, "-");
 		System.out.println("ADD CAREER INFORMATION");
 		Helper.line(80, "-");
 
-		String id = Helper.readString("Enter Career ID > ");
-		String name = Helper.readString("Enter Career Name > ");
+		String ID = Helper.readString("Enter career ID > ");
+		String name = Helper.readString("Enter career name > ");
+		String sect = Helper.readString("Enter career cluster > ");
 
-		if (existing(clusterList, id, name)) {
-			String information = Helper.readString("Enter Career Information > ");
+		CareerInfo inf = new CareerInfo(ID, name, sect);
 
-			Boolean added = addInfo(clusterList, id, name, information);
+		return inf;
 
-			if (added) {
-				System.out.println("Career Information added!");
-			} else {
-				System.out.println("Career Information not added!");
+	}
+
+	public static boolean duplicate(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+		boolean duplicate = false;
+
+		for (int i = 0; i < careerList.size(); i++) {
+			if (careerList.get(i).getCareerID().equalsIgnoreCase(inf.getCareerID())
+					&& careerList.get(i).getCareerName().equalsIgnoreCase(inf.getCareerName())) {
+				duplicate = true;
 			}
+		}
+
+		return duplicate;
+	}
+
+	public static boolean addInfo(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+		boolean added = false;
+
+		if (added == false) {
+			careerList.add(inf);
+			added = true;
+		}
+
+		return added;
+	}
+
+	public static void addInformation(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+
+		if (duplicate(careerList, inf)) {
+			System.out.println("The career you are trying to add exists.");
+			viewAllInformation(careerList);
+			addInformation(careerList, inputCareer());
+
 		} else {
-			System.out.println("Career does not exist!");
+			String option = Helper.readString("Are you sure you want to add new career? > ");
+			if (option.equalsIgnoreCase("y") || option.equalsIgnoreCase("yes")) {
+				if (addInfo(careerList, inf)) {
+					System.out.println("Career is added successfully.");
+				} else {
+					System.out.println("Career add unsuccessful");
+				}
+			} else {
+				System.out.println("Career add cancelled.");
+			}
 		}
 
 	}
 
-	public static boolean deleteInfo(ArrayList<AcademicCluster> cluterList, String id, String name) {
+	public static boolean deleteInfo(ArrayList<CareerInfo> careerList, String id, String name) {
 		boolean delete = false;
 
-		for (int i = 0; i < clusterList.size(); i++) {
-			if (clusterList.get(i).getClusterID().equalsIgnoreCase(id)
-					&& clusterList.get(i).getClusterName().equalsIgnoreCase(name)) {
+		for (int i = 0; i < careerList.size(); i++) {
+			if (careerList.get(i).getCareerID().equalsIgnoreCase(id)
+					&& careerList.get(i).getCareerName().equalsIgnoreCase(name)) {
 
-				clusterList.get(i).setCareerInformation(null);
+				careerList.remove(i);
+
 				delete = true;
 			}
 		}
@@ -269,8 +302,8 @@ public class CareerPlanningApp {
 		return delete;
 	}
 
-	public static void deleteInformation(ArrayList<AcademicCluster> clusterList) {
-		viewAllInformation(clusterList);
+	public static void deleteInformation(ArrayList<CareerInfo> careerList) {
+		viewAllInformation(careerList);
 
 		Helper.line(80, "-");
 		System.out.println("DELETE CAREER INFORMATION");
@@ -279,12 +312,12 @@ public class CareerPlanningApp {
 		String id = Helper.readString("Enter Career ID > ");
 		String name = Helper.readString("Enter Career Name > ");
 
-		if (existing(clusterList, id, name)) {
+		if (existing(careerList, id, name)) {
 			String option = Helper.readString("Are you sure you want to delete " + id + ", " + name + "? > ");
 
 			if (option.equalsIgnoreCase("yes") || option.equalsIgnoreCase("y")) {
 
-				Boolean delete = deleteInfo(clusterList, id, name);
+				Boolean delete = deleteInfo(careerList, id, name);
 
 				if (delete) {
 					System.out.println("Career Information deleted!");
@@ -293,7 +326,7 @@ public class CareerPlanningApp {
 					System.out.println("Career Information not deleted!");
 				}
 			} else {
-				System.out.println("Career Information not deleted!");
+				System.out.println("Career Information delete cancelled!");
 
 			}
 
@@ -360,12 +393,11 @@ public class CareerPlanningApp {
 	}
 
 	public static void viewSubjects(ArrayList<Subjects> subjectList2) {
-		
+
 		String output = String.format("%-14s %-15s\n", "SUBJECT ID", " SUBJECT NAME");
 
-			output += retrieveSubjects(subjectList);
-			System.out.println(output);
-		
+		output += retrieveSubjects(subjectList);
+		System.out.println(output);
 
 	}
 
@@ -373,7 +405,7 @@ public class CareerPlanningApp {
 
 		String subjectID = Helper.readString("Enter Subject ID: ");
 		String subjectName = Helper.readString("Enter Subject Name: ");
-		
+
 		Subjects addSubject = new Subjects(subjectID, subjectName);
 		addSubjectList.add(addSubject);
 
