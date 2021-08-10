@@ -64,6 +64,7 @@ public class CareerPlanningApp {
 				Helper.line(80, "=");
 				System.out.println("Manage Career Information");
 				Helper.line(80, "=");
+				
 				System.out.println("1. View all Career Information");
 				System.out.println("2. Add Career Information");
 				System.out.println("3. Delete Career Information");

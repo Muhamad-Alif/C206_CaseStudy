@@ -134,6 +134,7 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void viewInformationTest() {
+
 		// Test career list is not null, so that there is a valid list to retrieve from.
 		assertNotNull("Test career is empty not null", careerList);
 
