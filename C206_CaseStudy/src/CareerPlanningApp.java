@@ -324,18 +324,16 @@ public class CareerPlanningApp {
 		String output = "";
 
 		for (int i = 0; i < userAccList.size(); i++) {
-			output += String.format("%-15s %-15s", userAccList.get(i).getUserID(), userAccList.get(i).getUserName());
+			output += String.format("%-15s %-15s\n", userAccList.get(i).getUserID(), userAccList.get(i).getUserName());
 		}
 		return output;
 	}
 
 	public static void viewAllUsers(ArrayList<UserAccounts> userAccList) {
 		String output = String.format("%-15s %-10s\n", "USER ID", "NAME");
+		output += retrieveAllUsers(userAccList);
 
-		for (int i = 0; i < userAccList.size(); i++) {
-			output += retrieveAllUsers(userAccList);
-			System.out.println(output);
-		}
+		System.out.println(output);
 	}
 
 	public static String retrieveSubjects(ArrayList<Subjects> subjectList) {

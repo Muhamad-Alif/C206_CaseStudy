@@ -10,7 +10,7 @@ public class UserAccounts {
 	private String userName;
 	private String userID;
 	
-	public UserAccounts(String userName, String userID) {
+	public UserAccounts(String userID, String userName) {
 		this.userName = userName;
 		this.userID = userID;
 	}
