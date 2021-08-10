@@ -7,7 +7,7 @@ public class CareerPlanningApp {
 	static ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 
 	public static void main(String[] args) {
-//
+
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
 		clusterList.add(new AcademicCluster("R2", "Information Technology", "Application Software Developer"));
 
@@ -37,7 +37,7 @@ public class CareerPlanningApp {
 				} else if (UserOption == 3) {
 					CareerPlanningApp.removeUserAcc(userAccList);
 				}
-
+				
 			} else if (option == 2) {
 				Helper.line(80, "=");
 				System.out.println("Manage Academic Cluster");
@@ -50,7 +50,7 @@ public class CareerPlanningApp {
 
 				if (ACOption == 1) {
 					CareerPlanningApp.viewCluster(clusterList);
-
+					
 				} else if (ACOption == 2) {
 					clusterList = CareerPlanningApp.addCluster(clusterList);
 
@@ -69,7 +69,7 @@ public class CareerPlanningApp {
 
 				if (CIOption == 1) {
 					CareerPlanningApp.viewAllInformation(clusterList);
-
+					
 				} else if (CIOption == 2) {
 					CareerPlanningApp.addInformation(clusterList);
 
@@ -89,10 +89,10 @@ public class CareerPlanningApp {
 
 				if (SubjectOption == 1) {
 					CareerPlanningApp.viewSubjects(subjectList);
-
+					
 				} else if (SubjectOption == 2) {
 					CareerPlanningApp.addSubjects(subjectList);
-
+					
 				} else if (SubjectOption == 3) {
 					CareerPlanningApp.deleteSubjects(subjectList);
 
@@ -127,11 +127,9 @@ public class CareerPlanningApp {
 
 	public static void viewCluster(ArrayList<AcademicCluster> clusterList) {
 		String output = String.format("%-15s %-10s\n", "CLUSTER ID", "NAME");
-
-		output += retrieveCluster(clusterList);
-		System.out.println(output);
-
-	}
+			output += retrieveCluster(clusterList);
+			System.out.println(output);
+		}
 
 	public static ArrayList<AcademicCluster> addCluster(ArrayList<AcademicCluster> clusterList) {
 		String clusterID = Helper.readString("Enter Cluster ID > ");
@@ -191,7 +189,6 @@ public class CareerPlanningApp {
 
 	public static boolean existing(ArrayList<AcademicCluster> clusterList, String id, String name) {
 		boolean existing = false;
-
 		for (int i = 0; i < clusterList.size(); i++) {
 			if (clusterList.get(i).getClusterID().equalsIgnoreCase(id)
 					&& clusterList.get(i).getClusterName().equalsIgnoreCase(name)) {
