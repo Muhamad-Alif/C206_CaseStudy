@@ -7,7 +7,7 @@ public class CareerPlanningApp {
 	static ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 
 	public static void main(String[] args) {
-
+//
 		clusterList.add(new AcademicCluster("R1", "Agriculture, Food & Natural Resources"));
 		clusterList.add(new AcademicCluster("R2", "Information Technology", "Application Software Developer"));
 
