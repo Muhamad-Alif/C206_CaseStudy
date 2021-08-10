@@ -6,7 +6,6 @@
  * Alif, Aug 9, 2021 10:22:10 AM
  */
 
-
 public class AcademicCluster {
 
 	private String clusterID;

@@ -64,7 +64,7 @@ public class CareerPlanningApp {
 				Helper.line(80, "=");
 				System.out.println("Manage Career Information");
 				Helper.line(80, "=");
-				
+
 				System.out.println("1. View all Career Information");
 				System.out.println("2. Add Career Information");
 				System.out.println("3. Delete Career Information");
@@ -176,7 +176,7 @@ public class CareerPlanningApp {
 		return clusterList;
 	}
 
-	public static String retrieveAllInformation(ArrayList<CareerInfo> careerList) {
+	public static String retrieveAllInformation(ArrayList<CareerInfo> careerList) { //gordon
 		String output = "";
 
 		for (int i = 0; i < careerList.size(); i++) {
@@ -199,7 +199,7 @@ public class CareerPlanningApp {
 		return output;
 	}
 
-	public static void viewAllInformation(ArrayList<CareerInfo> careerList) {
+	public static void viewAllInformation(ArrayList<CareerInfo> careerList) { //gordon
 
 		Helper.line(80, "-");
 		System.out.println("CAREER INFORMATION");
@@ -211,21 +211,7 @@ public class CareerPlanningApp {
 		System.out.println(output);
 	}
 
-	public static boolean existing(ArrayList<CareerInfo> careerList, String id, String name) {
-		boolean existing = false;
-
-		for (int i = 0; i < careerList.size(); i++) {
-			if (careerList.get(i).getCareerID().equalsIgnoreCase(id)
-					&& careerList.get(i).getCareerName().equalsIgnoreCase(name)) {
-
-				existing = true;
-			}
-		}
-
-		return existing;
-	}
-
-	public static CareerInfo inputCareer() {
+	public static CareerInfo inputCareer() { //gordon
 
 		Helper.line(80, "-");
 		System.out.println("ADD CAREER INFORMATION");
@@ -241,7 +227,7 @@ public class CareerPlanningApp {
 
 	}
 
-	public static boolean duplicate(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+	public static boolean duplicate(ArrayList<CareerInfo> careerList, CareerInfo inf) { //gordon
 		boolean duplicate = false;
 
 		for (int i = 0; i < careerList.size(); i++) {
@@ -254,7 +240,7 @@ public class CareerPlanningApp {
 		return duplicate;
 	}
 
-	public static boolean addInfo(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+	public static boolean addInfo(ArrayList<CareerInfo> careerList, CareerInfo inf) { //gordon
 		boolean added = false;
 
 		if (added == false) {
@@ -265,7 +251,7 @@ public class CareerPlanningApp {
 		return added;
 	}
 
-	public static void addInformation(ArrayList<CareerInfo> careerList, CareerInfo inf) {
+	public static void addInformation(ArrayList<CareerInfo> careerList, CareerInfo inf) { //gordon
 
 		if (duplicate(careerList, inf)) {
 			System.out.println("The career you are trying to add exists.");
@@ -287,7 +273,21 @@ public class CareerPlanningApp {
 
 	}
 
-	public static boolean deleteInfo(ArrayList<CareerInfo> careerList, String id, String name) {
+	public static boolean existing(ArrayList<CareerInfo> careerList, String id, String name) { //gordon
+		boolean existing = false;
+
+		for (int i = 0; i < careerList.size(); i++) {
+			if (careerList.get(i).getCareerID().equalsIgnoreCase(id)
+					&& careerList.get(i).getCareerName().equalsIgnoreCase(name)) {
+
+				existing = true;
+			}
+		}
+
+		return existing;
+	}
+
+	public static boolean deleteInfo(ArrayList<CareerInfo> careerList, String id, String name) { //gordon
 		boolean delete = false;
 
 		for (int i = 0; i < careerList.size(); i++) {
@@ -303,7 +303,7 @@ public class CareerPlanningApp {
 		return delete;
 	}
 
-	public static void deleteInformation(ArrayList<CareerInfo> careerList) {
+	public static void deleteInformation(ArrayList<CareerInfo> careerList) { //gordon
 		viewAllInformation(careerList);
 
 		Helper.line(80, "-");

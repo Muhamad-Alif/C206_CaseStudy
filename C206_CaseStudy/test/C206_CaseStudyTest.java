@@ -66,7 +66,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void deleteInformationTest() {
+	public void deleteInformationTest() { //gordon
 
 		// Test career list is not null, so that there is a valid list to delete from.
 		assertNotNull("Test career is empty not null", careerList);
@@ -98,7 +98,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void addInformationTest() {
+	public void addInformationTest() { //gordon
 
 		// Test career list is not null, so that there is a valid list to add to.
 		assertNotNull("Test career is empty not null", careerList);
@@ -132,8 +132,8 @@ public class C206_CaseStudyTest {
 
 	}
 
-	@Test
-	public void viewInformationTest() {
+	@Test 
+	public void viewInformationTest() { //gordon
 
 		// Test career list is not null, so that there is a valid list to retrieve from.
 		assertNotNull("Test career is empty not null", careerList);

@@ -1,5 +1,6 @@
 
 public class CareerInfo {
+	
 	private String careerID;
 	private String careerName;
 	private String careerSect;
