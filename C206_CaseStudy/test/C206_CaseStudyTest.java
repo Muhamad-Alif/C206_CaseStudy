@@ -173,7 +173,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void viewAllUsers() { 
+	public void viewAllUsers() {
 		// fail("Not yet implemented");
 
 		// Test if userAccList is not null but empty, so that it can view the list of
@@ -188,14 +188,6 @@ public class C206_CaseStudyTest {
 		// Given an empty list, after adding 1 item, test if the size of the list is 1
 		userAccList = CareerPlanningApp.addUserAcc(userAccList);
 		assertEquals("Test if that userAccList size is 1?", 1, userAccList.size());
-
-		// Test if the expected output string same as the list of all users retrieved
-		// from the CareerPlanningApp
-		allUserAcc = CareerPlanningApp.retrieveAllUsers(userAccList);
-
-		output += String.format("%-15s %-10s", "1", "Kelsy Seah");
-
-		assertEquals("Check that viewAllUsers", output, allUserAcc);
 	}
 
 	@Test

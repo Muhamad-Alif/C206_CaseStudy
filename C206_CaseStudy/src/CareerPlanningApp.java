@@ -349,22 +349,25 @@ public class CareerPlanningApp {
 	}
 
 	public static ArrayList<UserAccounts> removeUserAcc(ArrayList<UserAccounts> removeUserList) {
+		boolean deleteUserAcc = false;
 		String userID = Helper.readString("Enter User ID > ");
+		char confirmDeletion = Helper.readChar("Are you sure you want to delete this user? (Y/N): ");
 
-		for (int i = 0; i < userAccList.size(); i++) {
+		if (confirmDeletion == 'Y' || confirmDeletion == 'y') {
+			for (int i = 0; i < userAccList.size(); i++) {
 			if (userID.equalsIgnoreCase(userAccList.get(i).getUserID())) {
 				userAccList.remove(i);
 
 				System.out.println("User " + userID + " have been removed!");
 				break;
-			}
-
-			else {
-				System.out.println("Invalid User ID!");
+				}
 			}
 		}
-
+		else {
+			System.out.println("Invalid User ID!");
+		}
 		return removeUserList;
+		
 	}
 
 	public static String retrieveAllUsers(ArrayList<UserAccounts> userAccList) {
