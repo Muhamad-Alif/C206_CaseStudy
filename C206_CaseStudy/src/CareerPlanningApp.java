@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class CareerPlanningApp { 
+public class CareerPlanningApp {
 
 	static ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
 	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
