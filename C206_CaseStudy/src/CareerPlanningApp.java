@@ -418,21 +418,25 @@ public class CareerPlanningApp {
 	public static ArrayList<Subjects> deleteSubjects(ArrayList<Subjects> deleteSubjectList) {
 		boolean deleteSubject = false;
 		String subjectID = Helper.readString("Enter Subject ID > ");
-
-		for (int i = 0; i < subjectList.size(); i++) {
+		char confirm = Helper.readChar("Confirmation of delete? (Y/N) > ");
+		
+		if (confirm == 'Y' || confirm == 'y') {
+			for (int i = 0; i < subjectList.size(); i++) {
 			if (subjectID.equalsIgnoreCase(subjectList.get(i).getSubjectID())) {
 				subjectList.remove(i);
 				deleteSubject = true;
 				System.out.println("Subject " + subjectID + " has been successfully removed!");
 				break;
+				}
 			}
-
-			else {
+			
+		} else {
 				System.out.println("Invalid Subject ID!");
+			
 			}
-		}
-
-		return deleteSubjectList;
-
+			
+			return deleteSubjectList;	
+	
+	
 	}
 }
