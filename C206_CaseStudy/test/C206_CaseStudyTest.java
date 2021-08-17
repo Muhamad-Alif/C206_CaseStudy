@@ -7,7 +7,7 @@ import org.junit.Test;
 public class C206_CaseStudyTest { 
 
 	private ArrayList<AcademicCluster> clusterList = new ArrayList<AcademicCluster>();
-	static ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
+	private ArrayList<UserAccounts> userAccList = new ArrayList<UserAccounts>();
 	private ArrayList<Subjects> subjectList = new ArrayList<Subjects>();
 
 	private CareerInfo career1;
