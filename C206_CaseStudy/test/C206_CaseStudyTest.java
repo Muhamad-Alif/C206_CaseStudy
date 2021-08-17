@@ -173,7 +173,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void viewAllUsers() {
+	public void viewAllUsers() { 
 		// fail("Not yet implemented");
 
 		// Test if userAccList is not null but empty, so that it can view the list of
